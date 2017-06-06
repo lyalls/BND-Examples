@@ -1,0 +1,9 @@
+{
+	"name": "bnd-examples",
+	"dependencies": {
+		"bnd": "0.0.28",
+		"bnd-service-driver-http": "0.0.5",
+		"bnd-service-provider-http": "0.0.5"
+	},
+	"repository": "git@github.com:lyalls/BND-Examples.git"
+}
