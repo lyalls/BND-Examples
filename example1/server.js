@@ -20,7 +20,17 @@ const webpackHot = hotMiddleware(compiler, {
 
 const cors = require('koa2-cors');
 const serverMiddlewares = [
-    cors(),
+	async (ctx, next) => {
+		console.log(ctx.request.method);
+		await next();
+	},
+    cors({
+    	origin: (ctx) => {
+    		//console.log(ctx);
+    		return '*';
+    	},
+    	allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS', 'PUT', 'HEADERS'],
+    }),
     webpackDev,
     webpackHot,
 ];
@@ -39,13 +49,13 @@ const routes = [{
  */
 
 const BND = require('bnd');
-const httpProvider = require('bnd-service-provider-http').default;
-const httpDriver = require('bnd-service-driver-http').default;
+const httpProvider = require('bnd-service-provider-http');
+const httpDriver = require('bnd-service-driver-http');
 
 BND.setProviderClass('http', httpProvider);
 BND.setDriverClass('http', httpDriver);
 BND.configureRepository({
-	name: "BND-Example",
+	name: "example",
 	version: "1.0.0",
 	node: {
 		routes: [
@@ -53,7 +63,13 @@ BND.configureRepository({
 				providerClass: 'http',
 				driverClass: 'http',
 				providerSettings: {
-					port: 1111
+					port: 1111,
+					cors: {
+						'Access-Control-Allow-Headers': 'Content-Type',
+						'Access-Control-Allow-Method': 'POST',
+						'Access-Control-Allow-Origin': '*',
+						'Access-Control-Max-Age': 86400,
+					}
 				},
 				serviceSettings: {
 					path: '/$BND$/node',

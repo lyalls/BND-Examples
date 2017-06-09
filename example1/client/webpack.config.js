@@ -14,6 +14,9 @@ const plugins = [
         babelrc: false,
     }),
 ];
+console.log('webpack path:', __dirname);
+const srcDir = path.resolve(__dirname, '../../');
+console.log('project root:', path.resolve(__dirname, '../../'));
 module.exports = {
     entry: {
         app: [
@@ -22,7 +25,7 @@ module.exports = {
             './example1/client/app.js',
         ],
         vendors: [
-            //'babel-polyfill', 
+            // 'babel-polyfill', 
             'react', 'react-dom', 
         ],
     },
@@ -45,9 +48,10 @@ module.exports = {
             loader: 'url-loader?limit=8192&name=./image/[name].[ext]',
         }, {
             test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
+            exclude: /(node_modules|bower_components|servicedriver)/i,
             loader: 'babel-loader',
             query: {
+                // babelrc: false,
                 presets: ['es2015', 'es2016', 'stage-0', 'react'],
                 plugins: ['transform-runtime'],
                 env: {
@@ -61,5 +65,4 @@ module.exports = {
             loader: 'url-loader?limit=10000&name=./font/[name].[ext]',
         }],
     },
-
 };

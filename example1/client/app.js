@@ -17,6 +17,9 @@ BND.setDriverClass('http', httpDriver)
 class HelloWorld extends Component {
     constructor(props) {
          super(props);
+         this.state = {
+            textColor: 'black',
+         };
      }
 
      async join() {
@@ -25,7 +28,7 @@ class HelloWorld extends Component {
             name: 'BND-Example-Client',
             version: '1.0.0',
         });
-        console.log('configureRepository:', res);
+        console.log('config:', res);
         res = await BND.join({ routes:
            [ { provider: { protocol: 'http', host: '127.0.0.1', port: 1111 },
                driver: 'http',
@@ -36,21 +39,53 @@ class HelloWorld extends Component {
                   inputParameters: [ { position: 'body', type: 'object' } ],
                   response: { type: 'json' } } } ],
           settings: {},
-          repository: 'BND-Example',
+          repository: 'example',
           version: '1.0.0' });
         console.log('join:', res);
      }
 
     async componentDidMount() {
         await this.join();
-        let res = await BND.invoke('BND-Example:greetings:1.0.0', 'hello', 21);
-        console.log(res);
+    }
+
+    async greeting(){
+      console.log('state:',this.state);
+      try{
+        let res = await BND.invoke('example:greetings:1.0.0', this.state.name, this.state.age);
+        console.log('response:', res);
+        this.setState({
+          greetingWords: res,
+          textColor: 'blue',
+        });
+      } catch(e) {
+        this.setState({
+          greetingWords: e,
+          textColor: 'red',
+        });
+      }
+    }
+
+    async nameChanged(e) {
+      this.state.name = e.currentTarget.value
+      await this.greeting();
+    }
+
+    async ageChanged(e) {
+      this.state.age = e.currentTarget.value
+      await this.greeting();
     }
 
     render() {
         return (
             <div>
-                Hello world
+                <input type='text' onChange={this.nameChanged.bind(this)} />
+                <input type='text' onChange={this.ageChanged.bind(this)} />
+                <br></br>
+                <span style={{color: this.state.textColor}}>
+                {
+                  this.state.greetingWords
+                }
+                </span>
             </div> 
         ) 
     } 

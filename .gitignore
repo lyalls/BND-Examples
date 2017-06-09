@@ -57,3 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
+bash_env.config
+package-lock.json
+idea
