@@ -18,9 +18,7 @@ const webpackHot = hotMiddleware(compiler, {
     heartbeat: 10 * 1000,
 });
 
-const cors = require('koa2-cors');
 const serverMiddlewares = [
-    // cors(),
     webpackDev,
     webpackHot,
 ];
@@ -54,13 +52,6 @@ BND.configureRepository({
 				driverClass: 'http',
 				providerSettings: {
 					port: 1111,
-					// headers: {
-					// 	'Access-Control-Allow-Headers': 'Content-Type',
-					// 	'Access-Control-Allow-Methods': 'POST',
-					// 	'Access-Control-Allow-Origin': '*',
-					// 	'Access-Control-Max-Age': 86400,
-					// }
-					// middlewares: [cors()]
 				},
 				serviceSettings: {
 					path: '/$BND$/node',
@@ -76,7 +67,6 @@ BND.configureRepository({
 	try {
 		BND.utils.inspectlog(repoInfo.node.info);
 		const htmlPath = path.resolve(__dirname, './client/index.html');
-		console.log('html file:', htmlPath, 'exists:', require('fs').existsSync(htmlPath));
 		const serviceSPA = await BND.registerService({
 		    name: 'SPA',
 		    settings: {
