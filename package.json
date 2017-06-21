@@ -1,5 +1,8 @@
 {
 	"name": "bnd-examples",
+    "scripts": {
+        "example1": "node example1/server.js"
+    },
 	"dependencies": {
 		"babel": "^6.23.0",
 		"babel-cli": "^6.24.0",
@@ -14,7 +17,7 @@
 		"babel-register": "^6.24.1",
 		"bnd": "latest",
 		"bnd-service-driver-http": "latest",
-		"bnd-service-provider-http": "latest",
+		"bnd-service-provider-http": "^0.1.1",
 		"css-loader": "^0.28.0",
 		"echarts": "^3.5.1",
 		"eventsource-polyfill": "^0.9.6",
