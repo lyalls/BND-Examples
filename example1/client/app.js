@@ -22,30 +22,20 @@ class HelloWorld extends Component {
          };
      }
 
-     async join() {
-        let res;
-        res = await BND.configureRepository({
-            name: 'BND-Example-Client',
-            version: '1.0.0',
-        });
-        console.log('config:', res);
-        res = await BND.join({ routes:
-           [ { provider: { protocol: 'http', host: '127.0.0.1', port: 1111 },
-               driver: 'http',
-               serviceSettings:
-                { protocol: 'http',
-                  path: '/$BND$/node',
-                  method: 'post',
-                  inputParameters: [ { position: 'body', type: 'object' } ],
-                  response: { type: 'json' } } } ],
-          settings: {},
-          repository: 'example',
-          version: '1.0.0' });
-        console.log('join:', res);
-     }
-
     async componentDidMount() {
-        await this.join();
+      const res = await BND.join({ routes:
+         [ { provider: { protocol: 'http', host: '127.0.0.1', port: 1111 },
+             driver: 'http',
+             serviceSettings:
+              { protocol: 'http',
+                path: '/$BND$/node',
+                method: 'post',
+                inputParameters: [ { position: 'body', type: 'object' } ],
+                response: { type: 'json' } } } ],
+        settings: {},
+        repository: 'example',
+        version: '1.0.0' });
+      console.log('join:', res);
     }
 
     async greeting(){
@@ -78,8 +68,9 @@ class HelloWorld extends Component {
     render() {
         return (
             <div>
-                <input type='text' onChange={this.nameChanged.bind(this)} />
-                <input type='text' onChange={this.ageChanged.bind(this)} />
+                Name: <input type='text' onChange={this.nameChanged.bind(this)} />
+                <br></br>
+                Age: <input type='text' onChange={this.ageChanged.bind(this)} />
                 <br></br>
                 <span style={{color: this.state.textColor}}>
                 {
