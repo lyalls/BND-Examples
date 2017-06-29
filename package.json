@@ -1,8 +1,8 @@
 {
 	"name": "bnd-examples",
-    "scripts": {
-        "example1": "node example1/server.js"
-    },
+	"scripts": {
+		"example1": "node example1/server.js"
+	},
 	"dependencies": {
 		"babel": "^6.23.0",
 		"babel-cli": "^6.24.0",

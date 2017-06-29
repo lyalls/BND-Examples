@@ -13,6 +13,7 @@ import * as BND from 'bnd';
 import httpDriver from 'bnd-service-driver-http';
 // BND.setProviderClass('http', 'httpProvider')
 BND.setDriverClass('http', httpDriver)
+BND.setDriverClass('http', httpDriver)
 
 class HelloWorld extends Component {
     constructor(props) {
@@ -23,15 +24,23 @@ class HelloWorld extends Component {
      }
 
     async componentDidMount() {
-      const res = await BND.join({ routes:
-         [ { provider: { protocol: 'http', host: '127.0.0.1', port: 1111 },
-             driver: 'http',
-             serviceSettings:
-              { protocol: 'http',
-                path: '/$BND$/node',
-                method: 'post',
-                inputParameters: [ { position: 'body', type: 'object' } ],
-                response: { type: 'json' } } } ],
+      const res = await BND.join({ 
+          routes:[ 
+              { 
+                provider: { 
+                    protocol: 'http', host: '127.0.0.1', port: 1111 
+                },
+                driver: 'http',
+                serviceSettings: { protocol: 'http',
+                    path: '/$BND$/node',
+                    method: 'post',
+                    inputParameters: [ 
+                        { position: 'body', type: 'object' } 
+                    ],
+                    response: { type: 'json' } 
+                } 
+              } 
+            ],
         settings: {},
         repository: 'example',
         version: '1.0.0' });
