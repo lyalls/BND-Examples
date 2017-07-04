@@ -66,6 +66,20 @@ BND.configureRepository({
 }).then(async repoInfo => {
 	try {
 		BND.utils.inspectlog(repoInfo.node.info);
+		const serviceStatic = await BND.registerService({
+		    name: 'Static',
+		    settings: {
+		    	path: '/static',
+		    	method: 'get',
+		    	response: {
+		        	type: 'static',
+		        	path: path.resolve(__dirname, './client/resources'),
+		    	},
+			},
+			routes: routes
+		});
+
+
 		const htmlPath = path.resolve(__dirname, './client/index.html');
 		const serviceSPA = await BND.registerService({
 		    name: 'SPA',
