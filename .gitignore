@@ -60,3 +60,4 @@ typings/
 bash_env.config
 package-lock.json
 idea
+DS_Store
