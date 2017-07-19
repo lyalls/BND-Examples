@@ -23,10 +23,29 @@ httpDriver.registerPostProcess(async (response, next) => {
   await next();
 })
 
+httpDriver.registerGroupProcess(async (invokeInfo) => {
+  setTimeout(()=> {
+    console.log('This is a group process, invoke info is:', invokeInfo);
+  }, 300);
+});
+
 httpDriver.registerParallelProcess(async (invokeInfo) => {
   setTimeout(()=> {
-    console.log('This is a parallel process, invoke info is:', invokeInfo);
-  }, 300);
+    console.log('This is a parallel process 1, invoke info is:', invokeInfo);
+  }, 3000);
+});
+
+httpDriver.registerParallelProcess(async (invokeInfo) => {
+  setTimeout(()=> {
+    console.log('This is a parallel process 2, invoke info is:', invokeInfo);
+  }, 5000);
+});
+
+httpDriver.registerParallelProcess(async (invokeInfo) => {
+  setTimeout(()=> {
+    console.log('This is a parallel process 3, invoke info is:', invokeInfo);
+    throw "haha"
+  }, 4);
 });
 
 BND.setDriverClass('http', httpDriver)
