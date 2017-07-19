@@ -15,15 +15,9 @@
 		"babel-preset-react-hmre": "^1.1.1",
 		"babel-preset-stage-0": "^6.24.1",
 		"babel-register": "^6.24.1",
-<<<<<<< HEAD
-		"bnd": "*",
-		"bnd-service-driver-http": "*",
-		"bnd-service-provider-http": "*",
-=======
 		"bnd": "latest",
 		"bnd-service-driver-http": "latest",
 		"bnd-service-provider-http": "latest",
->>>>>>> 297c655a9adb7852e82ee7c43cdde32e02dc5360
 		"css-loader": "^0.28.0",
 		"echarts": "^3.5.1",
 		"eventsource-polyfill": "^0.9.6",

@@ -12,6 +12,23 @@ import * as BND from 'bnd';
 // import httpProvider from 'bnd-service-provider-http';
 import httpDriver from 'bnd-service-driver-http';
 // BND.setProviderClass('http', 'httpProvider')
+
+httpDriver.registerMiddleware(async (invokeInfo, next) => {
+  console.log('invoke info:', invokeInfo);
+  await next();
+});
+
+httpDriver.registerPostProcess(async (response, next) => {
+  console.log('response:', response);
+  await next();
+})
+
+httpDriver.registerParallelProcess(async (invokeInfo) => {
+  setTimeout(()=> {
+    console.log('This is a parallel process, invoke info is:', invokeInfo);
+  }, 300);
+});
+
 BND.setDriverClass('http', httpDriver)
 BND.setDriverClass('http', httpDriver)
 
